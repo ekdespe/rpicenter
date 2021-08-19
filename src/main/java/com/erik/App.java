@@ -9,7 +9,6 @@ import lombok.extern.slf4j.Slf4j;
 import net.ravendb.client.documents.IDocumentStore;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
 import org.eclipse.paho.client.mqttv3.MqttException;
-
 import java.awt.*;
 import java.io.IOException;
 import java.util.Locale;
