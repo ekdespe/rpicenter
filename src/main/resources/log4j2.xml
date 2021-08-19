@@ -4,10 +4,18 @@
         <Console name="Console" target="SYSTEM_OUT">
             <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
         </Console>
+        <File name="RpiCenter" fileName="logs/app.log">
+            <PatternLayout pattern="%d{HH:mm:ss.SSS} [%t] %-5level %logger{36} - %msg%n"/>
+        </File>
+
     </Appenders>
+    <Async name="RpiCenter">
+        <AppenderRef ref="RpiCenter"/>
+    </Async>
     <Loggers>
         <Root level="DEBUG">
             <AppenderRef ref="Console"/>
+            <AppenderRef ref="RpiCenter"/>
         </Root>
     </Loggers>
 </Configuration>
