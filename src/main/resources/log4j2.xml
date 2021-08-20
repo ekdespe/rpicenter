@@ -9,9 +9,7 @@
         </File>
 
     </Appenders>
-    <Async name="RpiCenter">
-        <AppenderRef ref="RpiCenter"/>
-    </Async>
+
     <Loggers>
         <Root level="DEBUG">
             <AppenderRef ref="Console"/>
