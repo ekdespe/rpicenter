@@ -9,6 +9,7 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.*;
 
 @Getter
@@ -30,18 +31,18 @@ public class ConfigurationApp {
         private Singleton() {
         }
 
-        public static ConfigurationApp getProperties() throws IOException {
+        public static ConfigurationApp getProperties()  {
             log.info(Constants.ANSI_PURPLE + "Starting Configuration handler" + Constants.ANSI_RESET);
             ConfigurationApp configurationApp  =  ConfigurationApp.builder().build();
 
+            InputStream appConfigPath = Singleton.class.getClassLoader().getResourceAsStream("application.properties");
 
-            String rootPath = Objects.requireNonNull(Thread.currentThread().getContextClassLoader().getResource("")).getPath();
-            String appConfigPath = rootPath + "app.properties";
 
-           try (FileInputStream fileInputStream = new FileInputStream(appConfigPath) ){
+
+           try {
 
                Properties appProps = new Properties();
-               appProps.load(fileInputStream);
+               appProps.load(appConfigPath);
 
                configurationApp =  ConfigurationApp.builder()
                        .mqttServerUrl(appProps.getProperty(Constants.MQTT_URL))
