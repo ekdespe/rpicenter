@@ -61,20 +61,18 @@
     <pluginManagement><!-- lock down plugins versions to avoid using Maven defaults (may be moved to parent pom) -->
       <plugins>
         <plugin>
-
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-maven-plugin</artifactId>
+          <configuration>
+            <layout>JAR</layout>
+            <classifier>spring-boot</classifier>
+            <mainClass>com.erik.App</mainClass>
+          </configuration>
             <executions>
               <execution>
                 <goals>
                   <goal>repackage</goal>
                 </goals>
-                <configuration>
-                  <classifier>spring-boot</classifier>
-                  <mainClass>
-                    com.baeldung.executable.ExecutableMavenJar
-                  </mainClass>
-                </configuration>
               </execution>
             </executions>
 
