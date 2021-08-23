@@ -47,7 +47,6 @@ public class ConfigurationApp {
                configurationApp =  ConfigurationApp.builder()
                        .mqttServerUrl(appProps.getProperty(Constants.MQTT_URL))
                        .mqttServerRoom(appProps.getProperty(Constants.MQTT_SENSOR_ROOT))
-                       .mqttServerSensors(loadSensorList(appProps.getProperty(Constants.MQTT_TOPIC_SENSORS)))
                        .mqttServerSeparator(appProps.getProperty(Constants.MQTT_TOPIC_SEPARARATOR))
                        .ravendbServerUrl(appProps.getProperty(Constants.RAVENDB_URL))
                        .ravendbServerDatabase(appProps.getProperty(Constants.RAVENDB_DATABASE))
@@ -61,12 +60,7 @@ public class ConfigurationApp {
            return configurationApp;
         }
 
-        private static Map<String,Sensor> loadSensorList(String sensorListAsString) {
-            Map<String,Sensor> sensors = new HashMap<>();
-            String[] strings = sensorListAsString.split(",");
-            Arrays.stream(strings).forEach(x -> sensors.put(x.toLowerCase(Locale.ROOT),Sensor.builder().id(x.toUpperCase(Locale.ROOT)).build()));
-            return sensors;
-        }
+
 
     }
 

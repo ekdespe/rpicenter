@@ -1,15 +1,15 @@
 package com.erik.config;
 
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.awt.*;
 import java.awt.image.BufferedImage;
 
+@AllArgsConstructor
 @Slf4j
 public class AsciiArt {
 
-    public AsciiArt() {
-    }
 
     public void drawString(String text, String artChar, Settings settings) {
         BufferedImage image = getImageIntegerMode(settings.width, settings.height);
@@ -30,7 +30,7 @@ public class AsciiArt {
                 continue;
             }
 
-            System.out.println(Constants.ANSI_BLUE+stringBuilder+Constants.ANSI_RESET);
+            log.info(Constants.ANSI_BLUE+stringBuilder+Constants.ANSI_RESET);
         }
 
     }
@@ -48,10 +48,10 @@ public class AsciiArt {
         return graphics2D;
     }
 
-    public class Settings {
-        public Font font;
-        public int width;
-        public int height;
+    public static class Settings {
+        public final Font font;
+        public final int width;
+        public final int height;
 
         public Settings(Font font, int width, int height) {
             this.font = font;
