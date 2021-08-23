@@ -6,12 +6,11 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.FileInputStream;
-import java.io.IOException;
 import java.io.InputStream;
 import java.util.*;
-
+/**
+ * Configuration class to initials application'  setup
+ */
 @Getter
 @NoArgsConstructor
 @AllArgsConstructor
@@ -31,13 +30,15 @@ public class ConfigurationApp {
         private Singleton() {
         }
 
+        /**
+         *
+         * @return instance with all configurations loaded from application.properties file
+         */
         public static ConfigurationApp getProperties()  {
             log.info(Constants.ANSI_PURPLE + "Starting Configuration handler" + Constants.ANSI_RESET);
             ConfigurationApp configurationApp  =  ConfigurationApp.builder().build();
 
             InputStream appConfigPath = Singleton.class.getClassLoader().getResourceAsStream("application.properties");
-
-
 
            try {
 

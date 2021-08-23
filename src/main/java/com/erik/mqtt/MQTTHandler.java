@@ -3,7 +3,6 @@ package com.erik.mqtt;
 
 import com.erik.config.ConfigurationApp;
 import com.erik.config.Constants;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -13,14 +12,24 @@ import org.eclipse.paho.client.mqttv3.MqttConnectOptions;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.util.UUID;
-
+/**
+ * Management the client for MQTT protocol
+ */
 @Getter
-@AllArgsConstructor
 @Builder
 @Slf4j
 public class MQTTHandler {
 
+    private MQTTHandler(){
+        //
+    }
     public static class Singleton {
+        /**
+         *
+         * @param properties see {@link com.erik.config.ConfigurationApp}
+         * @return A instance of mqtt client to perform subscriber tasks
+         * @throws MqttException The connection is not established for some reasons
+         */
         public static  IMqttClient getClient(ConfigurationApp properties) throws MqttException {
             log.info(Constants.ANSI_PURPLE+"Starting MQTT handler"+ Constants.ANSI_RESET);
 

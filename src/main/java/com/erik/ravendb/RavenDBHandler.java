@@ -3,13 +3,15 @@ package com.erik.ravendb;
 
 import com.erik.config.ConfigurationApp;
 import com.erik.config.Constants;
-import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 import net.ravendb.client.documents.DocumentStore;
 import net.ravendb.client.documents.IDocumentStore;
 
+/**
+ * Management the connection at RavenDB
+ */
 @Getter
 @Builder
 @Slf4j

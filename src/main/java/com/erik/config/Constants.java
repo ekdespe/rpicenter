@@ -1,7 +1,6 @@
 package com.erik.config;
 
 public class Constants {
-
     //Configurations
     public static final String MQTT_URL = "app.mqtt.server.url";
     public static final String MQTT_SENSOR_ROOT = "app.mqtt.server.topic.sensor.root";

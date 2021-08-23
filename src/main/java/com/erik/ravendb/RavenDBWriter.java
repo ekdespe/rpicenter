@@ -15,6 +15,7 @@ import java.time.Instant;
 import java.util.Date;
 
 
+/** This class process the received mqtt message at a isolated thread to allows the main flow process be free and write the sensor's value at ravenDB*/
 @Data
 @Builder
 @AllArgsConstructor
@@ -41,6 +42,13 @@ public class RavenDBWriter implements Runnable {
 
     }
 
+    /**
+     *
+     * @param properties see {@link com.erik.config.ConfigurationApp}
+     * @param topic MQTT received topic from mqtt message
+     * @param payload value of sensor from mqtt message
+     * @return a instance of Sensor, see {@link com.erik.model.Sensor}
+     */
     private Sensor getSensor(ConfigurationApp properties, String topic, String payload) {
         Sensor sensor = Sensor.builder().build();
         try {

@@ -3,6 +3,10 @@ package com.erik.model;
 
 import lombok.*;
 
+
+/**
+ * DTO to sensor node
+ */
 @Getter
 @Setter
 @AllArgsConstructor

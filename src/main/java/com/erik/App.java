@@ -44,8 +44,6 @@ public class App {
                 log.error("Error at mqtt handler message", e);
             }
         });
-
-
         log.info(ANSI_GREEN + "The application is health running " + ANSI_RESET);
 
     }
