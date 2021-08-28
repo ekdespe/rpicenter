@@ -30,7 +30,7 @@ public class App {
 
 
         client.subscribe(properties.getMqttServerRoom(), (topic, message) -> {
-            log.info("Received operation " + topic);
+            log.debug("Received operation " + topic);
             try {
                 new Thread(RavenDBWriter.
                         builder().
