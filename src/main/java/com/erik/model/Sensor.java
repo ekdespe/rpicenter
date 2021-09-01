@@ -3,6 +3,8 @@ package com.erik.model;
 
 import lombok.*;
 
+import java.util.Map;
+
 
 /**
  * DTO to sensor node
@@ -14,5 +16,5 @@ import lombok.*;
 @Builder
 public class Sensor {
     private String id;
-    Double value;
+    double[] values;
 }

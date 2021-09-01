@@ -10,6 +10,8 @@ public class Constants {
     public static final String RAVENDB_DATABASE = "app.ravendb.server.database";
     public static final String RAVENDB_DOCUMENT = "app.ravendb.server.document";
     public static final String ASCII_LOGO = "app.ascii.logo";
+    public static final String MODEL_FIELDS="app.model.fields";
+
     //Colors
     public static final String ANSI_RESET = "\u001B[0m";
     public static final String ANSI_BLACK = "\u001B[30m";

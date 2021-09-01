@@ -25,6 +25,7 @@ public class ConfigurationApp {
     private String ravendbServerDatabase;
     private String ravendbServerDocument;
     private String asciiLogo;
+    private final List<String> modelFields = new ArrayList<>();
 
     public static class Singleton {
         private Singleton() {
@@ -54,6 +55,10 @@ public class ConfigurationApp {
                        .ravendbServerDocument(appProps.getProperty(Constants.RAVENDB_DOCUMENT))
                        .asciiLogo(appProps.getProperty(Constants.ASCII_LOGO))
                        .build();
+                       configurationApp.getModelFields()
+                               .addAll(Arrays.asList(appProps
+                               .getProperty(Constants.MODEL_FIELDS)
+                               .split(configurationApp.mqttServerSeparator)));
            }catch (Exception e){
                log.error("Error on loading configurations from disk",e);
            }
