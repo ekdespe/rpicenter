@@ -19,7 +19,8 @@ import java.util.*;
 public class ConfigurationApp {
     private String mqttServerUrl;
     private String mqttServerRoom;
-    private Map<String,Sensor> mqttServerSensors;
+    private String mqttServerHeartbeat;
+   // private Map<String,Sensor> mqttServerSensors;
     private String mqttServerSeparator;
     private String ravendbServerUrl;
     private String ravendbServerDatabase;
@@ -49,6 +50,7 @@ public class ConfigurationApp {
                configurationApp =  ConfigurationApp.builder()
                        .mqttServerUrl(appProps.getProperty(Constants.MQTT_URL))
                        .mqttServerRoom(appProps.getProperty(Constants.MQTT_SENSOR_ROOT))
+                       .mqttServerHeartbeat(appProps.getProperty(Constants.MQTT_SENSOR_HEARTBEAT))
                        .mqttServerSeparator(appProps.getProperty(Constants.MQTT_TOPIC_SEPARARATOR))
                        .ravendbServerUrl(appProps.getProperty(Constants.RAVENDB_URL))
                        .ravendbServerDatabase(appProps.getProperty(Constants.RAVENDB_DATABASE))
@@ -59,6 +61,8 @@ public class ConfigurationApp {
                                .addAll(Arrays.asList(appProps
                                .getProperty(Constants.MODEL_FIELDS)
                                .split(configurationApp.mqttServerSeparator)));
+           log.info(Constants.ANSI_GREEN + "Success at start configuration"+ Constants.ANSI_RESET);
+
            }catch (Exception e){
                log.error("Error on loading configurations from disk",e);
            }

@@ -4,6 +4,7 @@ public class Constants {
     //Configurations
     public static final String MQTT_URL = "app.mqtt.server.url";
     public static final String MQTT_SENSOR_ROOT = "app.mqtt.server.topic.sensor.root";
+    public static final String MQTT_SENSOR_HEARTBEAT = "app.mqtt.server.topic.sensor.heartbeat";
     public static final String MQTT_TOPIC_SENSORS = "app.mqtt.server.topic.sensors";
     public static final String MQTT_TOPIC_SEPARARATOR= "app.mqtt.server.topic.separator";
     public static final String RAVENDB_URL = "app.ravendb.server.url";

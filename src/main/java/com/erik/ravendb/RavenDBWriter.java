@@ -1,6 +1,7 @@
 package com.erik.ravendb;
 
 import com.erik.config.ConfigurationApp;
+import com.erik.config.DeviceRegistry;
 import com.erik.model.Sensor;
 import com.erik.model.SensorField;
 import lombok.AllArgsConstructor;
@@ -34,6 +35,7 @@ public class RavenDBWriter implements Runnable {
     public void run() {
         final String payload = new String(message.getPayload());
         Sensor sensor = getSensor(properties, topic, payload);
+        registryDevice(sensor.getId(),properties);
 
         try (IDocumentSession session = ravendbConnection.openSession()) {
             ISessionDocumentTimeSeries timeSeries = session.timeSeriesFor(properties.getRavendbServerDocument(), sensor.getId());
@@ -58,11 +60,20 @@ public class RavenDBWriter implements Runnable {
             String[] split = topic.split(properties.getMqttServerSeparator());
             String[] splitPayload = payload.split(properties.getMqttServerSeparator());
 
-            sensor.setId(split[1].toLowerCase()+split[2]);
+
+            String sensorID = split[1].toLowerCase() + properties.getMqttServerSeparator() + split[2];
+            sensor.setId(sensorID);
             sensor.setValues(Arrays.stream(splitPayload).mapToDouble(Double::parseDouble).toArray());
+
         } catch (Exception e) {
             log.error("Error at build sensor");
         }
         return sensor;
+    }
+
+    private void registryDevice(String topic, ConfigurationApp properties) {
+        String[] split = topic.split(properties.getMqttServerSeparator());
+        String  sensorID = split[1].toLowerCase();
+        DeviceRegistry.registry(sensorID);
     }
 }

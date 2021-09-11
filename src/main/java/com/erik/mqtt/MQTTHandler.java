@@ -40,7 +40,9 @@ public class MQTTHandler {
             options.setCleanSession(true);
             options.setConnectionTimeout(10);
             client.connect(options);
+            log.info(Constants.ANSI_GREEN + "Success at starting MQTT handler"+ Constants.ANSI_RESET);
             return client;
+
         }
 
 

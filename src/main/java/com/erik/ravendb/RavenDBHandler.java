@@ -28,6 +28,8 @@ public class RavenDBHandler {
                 store = new DocumentStore(new String[]{properties.getRavendbServerUrl()}, properties.getRavendbServerDatabase());
 
                 store.initialize();
+                log.info(Constants.ANSI_GREEN + "Success at starting RavenDB handler"+ Constants.ANSI_RESET);
+
             } catch (Exception e) {
                 log.error("There was a error at open ravendb session", e);
             }

@@ -2,6 +2,8 @@ package com.erik;
 
 import com.erik.config.AsciiArt;
 import com.erik.config.ConfigurationApp;
+import com.erik.config.DeviceRegistry;
+import com.erik.jobs.JobHandler;
 import com.erik.mqtt.MQTTHandler;
 import com.erik.ravendb.RavenDBHandler;
 import com.erik.ravendb.RavenDBWriter;
@@ -27,7 +29,8 @@ public class App {
 
         IMqttClient client = MQTTHandler.Singleton.getClient(properties);
         IDocumentStore ravendbConnection = RavenDBHandler.Singleton.getConnection(properties);
-
+        JobHandler.Singleton.startJobs(properties);
+        DeviceRegistry.start(properties);
 
         client.subscribe(properties.getMqttServerRoom(), (topic, message) -> {
             log.debug("Received operation " + topic);
