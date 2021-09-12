@@ -1,0 +1,18 @@
+[
+  {
+    "description": "Start water the plant",
+    "leftOperand": "humidity",
+    "rightOperand": "10",
+    "operand": "<",
+    "topicToSend": "room/externo",
+    "payload": "start"
+  },
+  {
+    "description": "Stop water the plant",
+    "leftOperand": "humidity",
+    "rightOperand": "80",
+    "operand": ">",
+    "topicToSend": "room/externo",
+    "payload": "stop"
+  }
+]

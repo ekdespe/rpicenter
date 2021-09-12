@@ -1,5 +1,6 @@
 package com.erik;
 
+import com.erik.model.Sensor;
 import lombok.extern.java.Log;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.Test;
@@ -20,13 +21,14 @@ public class AppTest {
 
     @Test
     public void shouldAnswerWithTrue() {
-        Set<String> strings = new HashSet<>();
-strings.add("Erik");
-strings.add("Joao");
-strings.add("Maria");
-strings.add("Erik");
 
-        log.info(strings.toString());
+        Map<Sensor,String> k = new HashMap<>();
+        k.put(new Sensor("Erik",new double[]{1,2}),"Erik");
+        k.put(new Sensor("Maria",new double[]{1,2}),"Maria");
+        k.put(new Sensor("Joao",new double[]{1,2}),"Joao");
+
+
+
 
         assertTrue(true);
     }
