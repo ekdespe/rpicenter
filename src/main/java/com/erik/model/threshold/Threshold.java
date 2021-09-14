@@ -13,12 +13,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Threshold {
 
+    @JsonProperty("sensorID")
+    private String sensorID;
     @JsonProperty("description")
     private String description;
     @JsonProperty("leftOperand")
     private String leftOperand;
     @JsonProperty("rightOperand")
-    private String rightOperand;
+    private Double rightOperand;
     @JsonProperty("operand")
     private String operand;
     @JsonProperty("topicToSend")

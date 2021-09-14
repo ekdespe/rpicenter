@@ -1,9 +1,6 @@
 package com.erik;
 
-import com.erik.config.AsciiArt;
-import com.erik.config.ConfigurationApp;
-import com.erik.config.DeviceRegistry;
-import com.erik.config.Thresholds;
+import com.erik.config.*;
 import com.erik.jobs.JobHandler;
 import com.erik.mqtt.MQTTHandler;
 import com.erik.ravendb.RavenDBHandler;
@@ -33,6 +30,7 @@ public class App {
         JobHandler.Singleton.startJobs(properties);
         DeviceRegistry.start(properties);
         Thresholds.start(properties);
+        ThresholdsMapEvaluator.start(properties);
 
         client.subscribe(properties.getMqttServerRoom(), (topic, message) -> {
             log.debug("Received operation " + topic);

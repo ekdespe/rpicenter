@@ -2,6 +2,7 @@ package com.erik.ravendb;
 
 import com.erik.config.ConfigurationApp;
 import com.erik.config.DeviceRegistry;
+import com.erik.config.Thresholds;
 import com.erik.model.Sensor;
 import com.erik.model.SensorField;
 import lombok.AllArgsConstructor;
@@ -16,7 +17,7 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 import java.time.Instant;
 import java.util.Arrays;
 import java.util.Date;
-import java.util.Properties;
+
 
 
 /** This class process the received mqtt message at a isolated thread to allows the main flow process be free and write the sensor's value at ravenDB*/
@@ -36,6 +37,7 @@ public class RavenDBWriter implements Runnable {
         final String payload = new String(message.getPayload());
         Sensor sensor = getSensor(properties, topic, payload);
         registryDevice(sensor.getId(),properties);
+        Thresholds.check(sensor);
 
         try (IDocumentSession session = ravendbConnection.openSession()) {
             ISessionDocumentTimeSeries timeSeries = session.timeSeriesFor(properties.getRavendbServerDocument(), sensor.getId());

@@ -1,16 +1,18 @@
 [
   {
+    "sensorID": "externo",
     "description": "Start water the plant",
     "leftOperand": "humidity",
-    "rightOperand": "10",
+    "rightOperand": 10,
     "operand": "<",
     "topicToSend": "room/externo",
     "payload": "start"
   },
   {
+    "sensorID": "externo",
     "description": "Stop water the plant",
     "leftOperand": "humidity",
-    "rightOperand": "80",
+    "rightOperand": 80,
     "operand": ">",
     "topicToSend": "room/externo",
     "payload": "stop"
