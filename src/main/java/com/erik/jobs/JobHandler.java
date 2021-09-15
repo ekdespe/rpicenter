@@ -6,7 +6,9 @@ import lombok.extern.slf4j.Slf4j;
 import org.quartz.*;
 import org.quartz.impl.StdSchedulerFactory;
 
+import java.time.Instant;
 import java.util.Collections;
+import java.util.Date;
 
 @Slf4j
 public class JobHandler {
@@ -26,7 +28,7 @@ public class JobHandler {
                     JobDataMap jobDataMap = new JobDataMap(Collections.singletonMap("config", properties));
                     JobDetail job = JobBuilder.newJob(HeartbeatJob.class).withIdentity("heartbeatJob", "rpicenter").usingJobData(jobDataMap).build();
 
-                    Trigger trigger = TriggerBuilder.newTrigger().withIdentity("heartbaatTrigger", "rpicenter").startNow().withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever()).build();
+                    Trigger trigger = TriggerBuilder.newTrigger().withIdentity("heartbaatTrigger", "rpicenter").startAt(Date.from(Instant.now().plusSeconds(60))).withSchedule(SimpleScheduleBuilder.simpleSchedule().withIntervalInSeconds(60).repeatForever()).build();
 
 
 

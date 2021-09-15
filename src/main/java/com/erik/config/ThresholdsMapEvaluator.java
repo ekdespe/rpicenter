@@ -6,11 +6,13 @@ import com.erik.model.Sensor;
 import com.erik.model.threshold.Threshold;
 import com.erik.model.threshold.ThresholdExpression;
 import com.fasterxml.jackson.core.type.TypeReference;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.extern.slf4j.Slf4j;
 
 import java.io.File;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.function.BiPredicate;
@@ -19,8 +21,8 @@ import java.util.function.Predicate;
 
 @Slf4j
 public class ThresholdsMapEvaluator {
-    public static Map<String, Integer> threlsholdsMapEvaluator;
-    public static Map<String, BiPredicate<Double,Double>> operators;
+    public static Map<String, Integer> threlsholdsMapEvaluator = new HashMap<>();
+    public static Map<String, BiPredicate<Double,Double>> operators= new HashMap<>();
 
     public static Map<String, BiPredicate<Double,Double>> getOperator() {
         return Collections.unmodifiableMap(operators);
@@ -41,7 +43,7 @@ public class ThresholdsMapEvaluator {
             File file = new File(classLoader.getResource("fieldsMap.json").getFile());
 
             ObjectMapper objectMapper = new ObjectMapper();
-            List<Threshold> threlsholdsMapEvaluator = objectMapper.readValue(file, new TypeReference<List<Threshold>>(){});
+            threlsholdsMapEvaluator = objectMapper.readValue(file, Map.class);
             log.info(Constants.ANSI_GREEN + "Success at building Device thresholds map evaluator" + Constants.ANSI_RESET);
 
 

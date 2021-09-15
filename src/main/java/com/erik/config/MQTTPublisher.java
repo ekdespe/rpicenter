@@ -2,6 +2,7 @@ package com.erik.config;
 
 import com.erik.model.threshold.Threshold;
 import com.erik.model.threshold.ThresholdExpression;
+import com.erik.model.threshold.Thresholds;
 import com.erik.mqtt.MQTTHandler;
 import lombok.Builder;
 import lombok.extern.slf4j.Slf4j;
@@ -38,8 +39,8 @@ public class MQTTPublisher {
     }
 
 
-    public static void sendMessage(Threshold threshold) throws MqttException {
-        getMqttClient().publish(threshold.getTopicToSend(), new MqttMessage(threshold.getPayload().getBytes(StandardCharsets.UTF_8)));
+    public static void sendMessage(Thresholds threshold) throws MqttException {
+       getMqttClient().publish(threshold.getTopicToSend(), new MqttMessage(threshold.getPayload().getBytes(StandardCharsets.UTF_8)));
     }
 
 }

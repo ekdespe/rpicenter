@@ -2,9 +2,8 @@ package com.erik.ravendb;
 
 import com.erik.config.ConfigurationApp;
 import com.erik.config.DeviceRegistry;
-import com.erik.config.Thresholds;
+import com.erik.config.ThresholdsService;
 import com.erik.model.Sensor;
-import com.erik.model.SensorField;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -37,7 +36,7 @@ public class RavenDBWriter implements Runnable {
         final String payload = new String(message.getPayload());
         Sensor sensor = getSensor(properties, topic, payload);
         registryDevice(sensor.getId(),properties);
-        Thresholds.check(sensor);
+        ThresholdsService.check(sensor);
 
         try (IDocumentSession session = ravendbConnection.openSession()) {
             ISessionDocumentTimeSeries timeSeries = session.timeSeriesFor(properties.getRavendbServerDocument(), sensor.getId());
@@ -63,7 +62,8 @@ public class RavenDBWriter implements Runnable {
             String[] splitPayload = payload.split(properties.getMqttServerSeparator());
 
 
-            String sensorID = split[1].toLowerCase() + properties.getMqttServerSeparator() + split[2];
+            //String sensorID = split[1].toLowerCase() + properties.getMqttServerSeparator() + split[2];
+            String sensorID =  split[2];
             sensor.setId(sensorID);
             sensor.setValues(Arrays.stream(splitPayload).mapToDouble(Double::parseDouble).toArray());
 
@@ -74,8 +74,8 @@ public class RavenDBWriter implements Runnable {
     }
 
     private void registryDevice(String topic, ConfigurationApp properties) {
-        String[] split = topic.split(properties.getMqttServerSeparator());
-        String  sensorID = split[1].toLowerCase();
-        DeviceRegistry.registry(sensorID);
+        //String[] split = topic.split(properties.getMqttServerSeparator());
+        //String  sensorID = split[1].toLowerCase();
+        DeviceRegistry.registry(topic);
     }
 }

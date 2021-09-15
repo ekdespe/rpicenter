@@ -4,12 +4,10 @@ import com.erik.config.ConfigurationApp;
 import com.erik.config.DeviceRegistry;
 import com.erik.ravendb.RavenDBHandler;
 import com.erik.ravendb.RavenDBHeartbeatWriter;
-import com.erik.ravendb.RavenDBWriter;
 import lombok.SneakyThrows;
 import lombok.extern.slf4j.Slf4j;
 import net.ravendb.client.documents.IDocumentStore;
 import org.eclipse.paho.client.mqttv3.IMqttClient;
-import org.eclipse.paho.client.mqttv3.MqttCallback;
 import org.eclipse.paho.client.mqttv3.MqttException;
 import org.eclipse.paho.client.mqttv3.MqttMessage;
 import org.quartz.Job;
@@ -17,7 +15,6 @@ import org.quartz.JobDataMap;
 import org.quartz.JobExecutionContext;
 
 import java.nio.charset.StandardCharsets;
-import java.util.function.BinaryOperator;
 
 @Slf4j
 public class HeartbeatJob implements Job {
@@ -31,7 +28,6 @@ public class HeartbeatJob implements Job {
         IDocumentStore ravendbConnection = RavenDBHandler.Singleton.getConnection(properties);
 
         IMqttClient client = DeviceRegistry.getMqttClient();
-        //client.connect();
         String heartbeaTopicListen = buildHeartbeatURL(properties.getMqttServerHeartbeat(),properties.getMqttServerSeparator());
 
 

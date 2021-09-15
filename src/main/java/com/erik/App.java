@@ -27,10 +27,7 @@ public class App {
 
         IMqttClient client = MQTTHandler.Singleton.getClient(properties);
         IDocumentStore ravendbConnection = RavenDBHandler.Singleton.getConnection(properties);
-        JobHandler.Singleton.startJobs(properties);
-        DeviceRegistry.start(properties);
-        Thresholds.start(properties);
-        ThresholdsMapEvaluator.start(properties);
+        startServices(properties);
 
         client.subscribe(properties.getMqttServerRoom(), (topic, message) -> {
             log.debug("Received operation " + topic);
@@ -49,5 +46,13 @@ public class App {
         });
         log.info(ANSI_GREEN + "The application is health running " + ANSI_RESET);
 
+    }
+
+    private static void startServices(ConfigurationApp properties) {
+        JobHandler.Singleton.startJobs(properties);
+        DeviceRegistry.start(properties);
+        ThresholdsService.start(properties);
+        ThresholdsMapEvaluator.start(properties);
+        MQTTPublisher.start(properties);
     }
 }
