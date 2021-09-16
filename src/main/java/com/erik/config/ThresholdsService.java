@@ -29,7 +29,6 @@ public class ThresholdsService {
         return getThrelsholds().get(sensorID);
     }
 
-    //TODO DONE create configuration from json jackson
     public static void start(ConfigurationApp properties) {
         log.info(Constants.ANSI_RED + "Starting Thresholds  handler" + Constants.ANSI_RESET);
 

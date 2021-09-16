@@ -2,7 +2,9 @@ package com.erik.ravendb;
 
 import com.erik.config.ConfigurationApp;
 import com.erik.model.Sensor;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 import lombok.extern.slf4j.Slf4j;
 import net.ravendb.client.documents.IDocumentStore;
 import net.ravendb.client.documents.session.IDocumentSession;
@@ -11,12 +13,16 @@ import org.eclipse.paho.client.mqttv3.MqttMessage;
 
 import java.time.Instant;
 import java.util.Date;
-
+@Data
+@Builder
+@AllArgsConstructor
 @Slf4j
-public class RavenDBHeartbeatWriter extends  RavenDBWriter implements Runnable{
-    public RavenDBHeartbeatWriter(ConfigurationApp properties, IDocumentStore ravendbConnection, String topic, MqttMessage message) {
-        super(properties, ravendbConnection, topic, message);
-    }
+public class RavenDBHeartbeatWriter  implements Runnable{
+    ConfigurationApp properties;
+    IDocumentStore ravendbConnection;
+    String topic;
+    MqttMessage message;
+
     @Override
     public void run() {
 
