@@ -11,10 +11,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.eclipse.paho.client.mqttv3.MqttException;
 
 import java.io.File;
-import java.util.Collections;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Slf4j
@@ -25,8 +22,9 @@ public class ThresholdsService {
         return Collections.unmodifiableMap(threlsholds);
     }
 
-    public static List<Thresholds> getThrelshold(String sensorID) {
-        return getThrelsholds().get(sensorID);
+    public static Optional<List<Thresholds>> getThrelshold(String sensorID) {
+        List<Thresholds> thresholds = getThrelsholds().get(sensorID);
+        return  thresholds != null ?  Optional.of(thresholds):Optional.empty();
     }
 
     public static void start(ConfigurationApp properties) {
@@ -53,7 +51,25 @@ public class ThresholdsService {
         }
 
     public static void check(Sensor sensor) {
+        Optional<List<Thresholds>> thresholdsList = getThrelshold(sensor.getId());
+        thresholdsList.ifPresent(
+                thresholds -> thresholds.forEach(t ->{
+                    ThresholdExpression thresholdExpression = ThresholdExpression.builder().
+                            leftOperand(t.getLeftOperand()).
+                            rightOperand(t.getRightOperand()).
+                            operand(t.getOperand()).build();
 
+                    if (ThresholdsMapEvaluator.evaluate(sensor, thresholdExpression)) {
+                        try {
+                            MQTTPublisher.sendMessage(t);
+                            log.info(Constants.ANSI_GREEN + "Success at check mqtt Device thresholds" + Constants.ANSI_RESET);
+                        } catch (MqttException e) {
+                            log.error("Error at Success at send message mqtt Device thresholds", e);
+                        }
+                    }
+                })
+        );
+      /*
         getThrelshold(sensor.getId()).forEach(t -> {
 
 
@@ -74,6 +90,7 @@ public class ThresholdsService {
         });
 
 
+       */
 
     }
 
